@@ -1,7 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-
-const API_URL = "http://localhost:5000/api/admin";
 
 const initialState = {
   id: "",

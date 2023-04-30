@@ -40,3 +40,22 @@ export const AdminPanelContainer = styled.div`
     background-color: #007074;
   }
 `;
+
+export const AdminTeachersPanelContainer = styled.div`
+  h1 {
+    color: #007074;
+  }
+  form {
+    margin-top: 2rem;
+    /* width: 40%; */
+  }
+  table {
+    margin-top: 1rem;
+  }
+  table th {
+    color: #007074;
+    border-top: #007074 1px solid;
+  }
+  table td {
+  }
+`;

@@ -80,7 +80,7 @@ const Signin = () => {
 
   useEffect(() => {
     if (success) {
-      router.push("/admin/dashboard");
+      router.push("/admin/panel");
     }
   }, [success]);
 

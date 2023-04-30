@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Defaults to localStorage for web
 
 import authReducer from "./slices/admin/authSlice";
+import teacherReducer from "./slices/admin/teacherSlice";
 
 const persistAuthConfig = {
   key: "auth",
@@ -23,6 +24,7 @@ const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);
 const store = configureStore({
   reducer: {
     adminAuth: persistedAuthReducer,
+    adminTeacher: teacherReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
