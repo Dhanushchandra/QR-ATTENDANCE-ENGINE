@@ -35,7 +35,7 @@ const UpdatePopModals = ({ show, handleClose, data }) => {
     onSubmit: async (values) => {
       setLoading(true);
       try {
-        const res = await updateTeacher(id, token, values, values.tid);
+        const res = await updateTeacher(id, token, values, data.id);
         if (!res.ok && res.error) {
           setLoading(false);
           setError(res.error);

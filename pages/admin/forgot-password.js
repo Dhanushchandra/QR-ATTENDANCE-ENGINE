@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Feedback from "react-bootstrap/Feedback";
 import Loading from "@/components/admin/Loading";
 
+import { BiArrowBack } from "react-icons/bi";
 import { AdminForgotPasswordContainer } from "../../styles/admin";
 import { useFormik } from "formik";
 import { forgotPasswordValidationSchema } from "../../helper/admin/validationSchema";
@@ -63,7 +64,7 @@ const ForgotPassword = () => {
         <Loading />
       ) : (
         <AdminForgotPasswordContainer>
-          <h1>Forgot Password</h1>
+          <h1>Forgot Password?</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>
@@ -100,9 +101,6 @@ const ForgotPassword = () => {
                 alignItems: "center",
               }}
             >
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
               <Button variant="success">
                 <a
                   style={{
@@ -111,8 +109,11 @@ const ForgotPassword = () => {
                   }}
                   href="/admin/signin"
                 >
-                  Back to Signin
+                  <BiArrowBack /> Back
                 </a>
+              </Button>
+              <Button variant="primary" type="submit">
+                Submit
               </Button>
             </div>
           </Form>

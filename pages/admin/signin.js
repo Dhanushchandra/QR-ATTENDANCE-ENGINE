@@ -80,9 +80,12 @@ const Signin = () => {
 
   useEffect(() => {
     if (success) {
-      router.push("/admin/panel");
+      setLoading(true);
+      setTimeout(() => {
+        router.push("/admin/panel");
+      }, 2000);
     }
-  }, [success]);
+  }, [success, router]);
 
   return (
     <div>
@@ -114,7 +117,7 @@ const Signin = () => {
             <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
-                type="text"
+                type="password"
                 placeholder="Enter a password"
                 onChange={(e) => {
                   handleChange(e);

@@ -88,9 +88,12 @@ const Signup = () => {
 
   useEffect(() => {
     if (success) {
-      router.push("/admin/verify-email");
+      setLoading(true);
+      setTimeout(() => {
+        router.push("/admin/verify-email");
+      }, 2000);
     }
-  }, [success]);
+  }, [success, router]);
 
   return (
     <div>

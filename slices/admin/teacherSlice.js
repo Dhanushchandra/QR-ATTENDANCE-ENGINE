@@ -21,7 +21,6 @@ const teacherSlice = createSlice({
       state.teachers[index] = action.payload;
     },
     deleteTeacherState: (state, action) => {
-      console.log("Delete teacher state", action.payload);
       const teacherId = action.payload.id; // get the teacher id from the action payload
       state.teachers = state.teachers.filter(
         (teacher) => teacher.id !== teacherId // filter out the teacher with the matching id

@@ -1,16 +1,19 @@
-import { getTeachers } from "@/helper/admin/apicalls";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Table from "react-bootstrap/Table";
 import Loading from "@/components/admin/Loading";
 import Form from "react-bootstrap/Form";
-import { Button } from "react-bootstrap";
-import { AdminTeachersPanelContainer } from "../../../styles/admin/panel";
-import { ImBin } from "react-icons/im";
-import { AiOutlinePlus } from "react-icons/ai";
 import CreatePopUpModals from "@/components/admin/panel/teachers/CreatePopUpModals";
 import UpdatePopModals from "@/components/admin/panel/teachers/UpdatePopModals";
 import DeletePopUpModals from "@/components/admin/panel/teachers/DeletePopUpModals";
+import withAuth from "@/components/admin/withAuth";
+import Button from "react-bootstrap/Button";
+
+import { getTeachers } from "@/helper/admin/apicalls";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AdminTeachersPanelContainer } from "../../../styles/admin/panel";
+import { ImBin } from "react-icons/im";
+import { AiOutlinePlus } from "react-icons/ai";
+import { FiRefreshCcw } from "react-icons/fi";
 import { setAllTeachers } from "@/slices/admin/teacherSlice";
 
 const Teachers = () => {
@@ -25,6 +28,7 @@ const Teachers = () => {
   const [show, setShow] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [edit, setEdit] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [deleteTeacher, setDeleteTeacher] = useState({
     show: false,
     tid: "",
@@ -59,7 +63,7 @@ const Teachers = () => {
 
   useEffect(() => {
     preload();
-  }, []);
+  }, [refresh]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value.toLowerCase());
@@ -131,23 +135,41 @@ const Teachers = () => {
         />
         <Button variant="outline-success">Search</Button>
       </Form>
-      <Button
-        variant="primary"
-        onClick={() => {
-          setShow(true);
-        }}
-        style={{ marginTop: "20px" }}
-      >
-        Add Teacher
-        <AiOutlinePlus
-          size={20}
-          style={{
-            marginLeft: "10px",
-            marginBottom: "3px",
+      <div className="btn-wrap">
+        <Button
+          variant="primary"
+          onClick={() => {
+            setShow(true);
           }}
-        />
-      </Button>
+          style={{ marginTop: "20px" }}
+        >
+          Add Teacher
+          <AiOutlinePlus
+            size={20}
+            style={{
+              marginLeft: "10px",
+              marginBottom: "3px",
+            }}
+          />
+        </Button>
 
+        <Button
+          variant="secondary"
+          onClick={() => {
+            setRefresh(!refresh);
+          }}
+          style={{ marginTop: "20px" }}
+        >
+          Refresh
+          <FiRefreshCcw
+            size={20}
+            style={{
+              marginLeft: "10px",
+              marginBottom: "3px",
+            }}
+          />
+        </Button>
+      </div>
       <Table striped hover>
         <thead>
           <tr>
@@ -205,4 +227,4 @@ const Teachers = () => {
   );
 };
 
-export default Teachers;
+export default withAuth(Teachers);

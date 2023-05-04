@@ -4,9 +4,10 @@ import storage from "redux-persist/lib/storage"; // Defaults to localStorage for
 
 import authReducer from "./slices/admin/authSlice";
 import teacherReducer from "./slices/admin/teacherSlice";
+import studentReducer from "./slices/admin/studentSlice";
 
 const persistAuthConfig = {
-  key: "auth",
+  key: "adminAuth",
   storage,
   whitelist: [
     "id",
@@ -25,6 +26,7 @@ const store = configureStore({
   reducer: {
     adminAuth: persistedAuthReducer,
     adminTeacher: teacherReducer,
+    adminStudent: studentReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

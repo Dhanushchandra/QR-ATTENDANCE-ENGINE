@@ -56,3 +56,12 @@ export const updateTeacherValidationSchema = Yup.object({
     .min(3, "Min of 3 characters")
     .required("Department is required"),
 });
+
+export const resetPasswordValidationSchema = Yup.object({
+  password: Yup.string()
+    .min(6, "Min of 6 characters")
+    .required("Password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Confirm password is required"),
+});

@@ -59,7 +59,7 @@ const CreatePopUpModals = ({ show, handleClose }) => {
           dispatch(
             addTeacher({
               ...values,
-              _id: res.data._id,
+              id: res.data.id,
             })
           );
           formik.resetForm();

@@ -215,3 +215,27 @@ export const AdminForgotPasswordContainer = styled.div`
     }
   }
 `;
+
+export const AdminResetPasswordContainer = styled.div`
+  h1 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 4rem;
+    text-shadow: 2px 2px 4px #ffffff;
+  }
+
+  form {
+    width: 50%;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 70px 30px 50px -6px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+
+    .btn {
+      margin-top: 10px;
+    }
+  }
+`;

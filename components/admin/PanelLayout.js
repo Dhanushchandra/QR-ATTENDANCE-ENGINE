@@ -6,12 +6,13 @@ import Container from "react-bootstrap/Container";
 import styled from "styled-components";
 import DashBoard from "@/pages/admin/panel/dashboard";
 import Head from "next/head";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 import Teachers from "@/pages/admin/panel/teachers";
 import Students from "@/pages/admin/panel/students";
 import Attendance from "@/pages/admin/panel/attendance";
 import Profile from "@/pages/admin/panel/profile";
-import Settings from "@/pages/admin/panel/settings";
 
 import { AdminPanelContainer } from "../../styles/admin/panel";
 import { FiGithub } from "react-icons/fi";
@@ -20,6 +21,8 @@ import { GiTeacher } from "react-icons/gi";
 import { RiBillFill } from "react-icons/ri";
 import { MdLogout, MdDashboard, MdSettings } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 const StyledCol = styled(Col)`
   background-color: #d9d9d9;
@@ -31,12 +34,43 @@ const StyledCol = styled(Col)`
 `;
 
 const PanelLayout = () => {
+  const [show, setShow] = useState(false);
+
+  const router = useRouter();
+
+  const Logout = () => {
+    localStorage.removeItem("persist:adminAuth");
+    router.push("/admin/signin");
+  };
+
+  const handleClose = () => setShow(false);
+
   return (
     <AdminPanelContainer>
       <Head>
         <title>Admin Panel</title>
       </Head>
       <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Are you sure?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Do you want to logout?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button
+              variant="danger"
+              onClick={() => {
+                Logout();
+                handleClose();
+              }}
+            >
+              Logout
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Row>
           <StyledCol sm={2}>
             <div className="panel-title">
@@ -77,12 +111,7 @@ const PanelLayout = () => {
                     Profile
                   </Nav.Link>
                 </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="settings">
-                    <MdSettings />
-                    Settings
-                  </Nav.Link>
-                </Nav.Item>
+
                 <Nav.Item>
                   <Nav.Link
                     style={{
@@ -90,6 +119,9 @@ const PanelLayout = () => {
                       color: "white",
                     }}
                     eventKey="logout"
+                    onClick={() => {
+                      setShow(true);
+                    }}
                   >
                     {" "}
                     <MdLogout
@@ -126,9 +158,6 @@ const PanelLayout = () => {
               </Tab.Pane>
               <Tab.Pane eventKey="profile">
                 <Profile />
-              </Tab.Pane>
-              <Tab.Pane eventKey="settings">
-                <Settings />
               </Tab.Pane>
             </Tab.Content>
           </Col>{" "}

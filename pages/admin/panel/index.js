@@ -1,4 +1,5 @@
 import PanelLayout from "@/components/admin/PanelLayout";
+import withAuth from "@/components/admin/withAuth";
 
 const Panel = () => {
   return (
@@ -8,4 +9,4 @@ const Panel = () => {
   );
 };
 
-export default Panel;
+export default withAuth(Panel);
