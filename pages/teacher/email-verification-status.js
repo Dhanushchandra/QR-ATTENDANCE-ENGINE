@@ -1,8 +1,9 @@
 import ParticlesBackground from "@/components/admin/ParticlesBackground";
-import { useEffect } from "react";
-import { verifyEmail } from "@/helper/admin/apicalls";
-import { useRouter } from "next/router";
 import Head from "next/head";
+
+import { useEffect } from "react";
+import { verifyEmail } from "@/helper/teacher/apicalls";
+import { useRouter } from "next/router";
 
 const EmailVerificationStatus = () => {
   const router = useRouter();
@@ -14,7 +15,7 @@ const EmailVerificationStatus = () => {
       async function verify() {
         const res = await verifyEmail(token);
         if (!res.ok && res.error) {
-          router.push("/admin/signin");
+          router.push("/teacher/signin");
         }
       }
       verify();
@@ -43,7 +44,7 @@ const EmailVerificationStatus = () => {
           style={{
             color: "yellow",
           }}
-          href="/admin/signin"
+          href="/teacher/signin"
         >
           login
         </a>{" "}

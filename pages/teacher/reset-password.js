@@ -1,16 +1,16 @@
+import Feedback from "react-bootstrap/Feedback";
+import ParticlesBackground from "@/components/admin/ParticlesBackground";
+import Loading from "@/components/admin/Loading";
+import Head from "next/head";
+
 import { useRouter } from "next/router";
-import { resetPassword } from "@/helper/admin/apicalls";
+import { resetPassword } from "@/helper/teacher/apicalls";
 import { useFormik } from "formik";
 import { Button, Form, Toast } from "react-bootstrap";
-import Feedback from "react-bootstrap/Feedback";
 import { resetPasswordValidationSchema } from "../../helper/admin/validationSchema";
 import { AdminResetPasswordContainer } from "../../styles/admin";
 import { BiArrowBack } from "react-icons/bi";
-
-import ParticlesBackground from "@/components/admin/ParticlesBackground";
 import { useState } from "react";
-import Loading from "@/components/admin/Loading";
-import Head from "next/head";
 
 const ResetPassword = () => {
   const router = useRouter();
@@ -139,7 +139,7 @@ const ResetPassword = () => {
                   color: "white",
                   textDecoration: "none",
                 }}
-                href="/admin/signin"
+                href="/teacher/signin"
               >
                 <BiArrowBack /> Back
               </a>

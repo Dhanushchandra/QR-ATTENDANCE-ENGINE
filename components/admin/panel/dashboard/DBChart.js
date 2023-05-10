@@ -136,16 +136,7 @@ const DBChart = () => {
         },
       },
     },
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-            stepSize: 15,
-          },
-        },
-      ],
-    },
+
     responsive: true,
   };
 

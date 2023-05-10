@@ -15,6 +15,7 @@ import { ImBin } from "react-icons/im";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FiRefreshCcw } from "react-icons/fi";
 import { setAllTeachers } from "@/slices/admin/teacherSlice";
+import { Toast } from "react-bootstrap";
 
 const Teachers = () => {
   const id = useSelector((state) => state.adminAuth.id);
@@ -113,16 +114,25 @@ const Teachers = () => {
       />
 
       {loading && <Loading />}
+
       {error && (
-        <div>
-          <p
-            style={{
-              color: "red",
-            }}
-          >
-            {error}
-          </p>
-        </div>
+        <Toast
+          onClose={() => setError(null)}
+          show={error}
+          delay={3000}
+          autohide
+          bg="danger"
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+          }}
+        >
+          <Toast.Header>
+            <strong className="me-auto">Error</strong>
+          </Toast.Header>
+          <Toast.Body>{error}</Toast.Body>
+        </Toast>
       )}
 
       <Form className="d-flex">

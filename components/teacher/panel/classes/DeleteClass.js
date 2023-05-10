@@ -1,18 +1,18 @@
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Loading from "../../Loading";
+import Loading from "../../../../components/admin/Loading";
 import Toast from "react-bootstrap/Toast";
 
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { deleteTeacher } from "@/helper/admin/apicalls";
-import { deleteTeacherState } from "@/slices/admin/teacherSlice";
+import { deleteClass } from "@/helper/teacher/apicalls";
+import { deleteClassState } from "@/slices/teacher/classesSlice";
 
-const DeletePopUpModals = ({ show, handleClose, data }) => {
-  const id = useSelector((state) => state.adminAuth.id);
-  const token = useSelector((state) => state.adminAuth.token);
+const DeleteClass = ({ show, handleClose, data }) => {
+  const id = useSelector((state) => state.teacherAuth.id);
+  const token = useSelector((state) => state.teacherAuth.token);
 
   const dispatch = useDispatch();
 
@@ -22,15 +22,14 @@ const DeletePopUpModals = ({ show, handleClose, data }) => {
 
   const formik = useFormik({
     initialValues: {
-      tid: data.tid,
       name: data.name,
-      trn: data.trn,
+      cid: data.id,
     },
     onSubmit: async (values) => {
       setLoading(true);
 
       try {
-        const res = await deleteTeacher(id, token, values.tid);
+        const res = await deleteClass(token, id, values.cid);
         if (!res.ok && res.error) {
           setLoading(false);
           setError(res.error);
@@ -38,11 +37,7 @@ const DeletePopUpModals = ({ show, handleClose, data }) => {
         } else {
           setLoading(false);
           setSuccess(true);
-          dispatch(
-            deleteTeacherState({
-              id: values.tid,
-            })
-          );
+          dispatch(deleteClassState({ id: values.cid }));
           handleClose();
         }
       } catch (error) {
@@ -59,9 +54,8 @@ const DeletePopUpModals = ({ show, handleClose, data }) => {
   useEffect(() => {
     if (data) {
       setValues({
-        tid: data.tid,
         name: data.name,
-        trn: data.trn,
+        cid: data.id,
       });
     }
   }, [data]);
@@ -115,7 +109,7 @@ const DeletePopUpModals = ({ show, handleClose, data }) => {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete Teacher</Modal.Title>
+          <Modal.Title>Delete Class</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
@@ -129,14 +123,6 @@ const DeletePopUpModals = ({ show, handleClose, data }) => {
                 >
                   {data.name}
                 </span>{" "}
-                with TRN &nbsp;
-                <span
-                  style={{
-                    color: "green",
-                  }}
-                >
-                  {data.trn}
-                </span>
                 ?
               </h5>
             </Form.Group>
@@ -155,4 +141,4 @@ const DeletePopUpModals = ({ show, handleClose, data }) => {
   );
 };
 
-export default DeletePopUpModals;
+export default DeleteClass;

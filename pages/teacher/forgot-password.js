@@ -3,13 +3,13 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Feedback from "react-bootstrap/Feedback";
 import Loading from "@/components/admin/Loading";
+import Head from "next/head";
 
 import { BiArrowBack } from "react-icons/bi";
 import { AdminForgotPasswordContainer } from "../../styles/admin";
 import { useFormik } from "formik";
 import { forgotPasswordValidationSchema } from "../../helper/admin/validationSchema";
 import { useState } from "react";
-import Head from "next/head";
 
 const ForgotPassword = () => {
   const [success, setSuccess] = useState(false);
@@ -26,7 +26,7 @@ const ForgotPassword = () => {
 
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_ADMIN_BASE_API}/forgot-password`,
+          `${process.env.NEXT_PUBLIC_TEACHER_BASE_API}/forgot-password`,
           {
             method: "POST",
             headers: {
@@ -60,7 +60,7 @@ const ForgotPassword = () => {
   return (
     <div>
       <Head>
-        <title>Forgot Password</title>
+        <title>Teacher Forgot Password</title>
       </Head>{" "}
       <ParticlesBackground />
       {loading ? (
@@ -110,7 +110,7 @@ const ForgotPassword = () => {
                     color: "white",
                     textDecoration: "none",
                   }}
-                  href="/admin/signin"
+                  href="/teacher/signin"
                 >
                   <BiArrowBack /> Back
                 </a>
