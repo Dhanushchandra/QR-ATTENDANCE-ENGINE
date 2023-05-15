@@ -9,6 +9,9 @@ import studentReducer from "./slices/admin/studentSlice";
 import teacherAuthReducer from "./slices/teacher/authSlice";
 import classesReducer from "./slices/teacher/classesSlice";
 
+import studentAuthReducer from "./slices/student/authSlice";
+import studentClassReducer from "./slices/student/classesSlice";
+
 const persistAuthConfig = {
   key: "adminAuth",
   storage,
@@ -45,6 +48,28 @@ const persistTeacherClassesConfig = {
   whitelist: ["classes"],
 };
 
+const persistStudentAuthConfig = {
+  key: "studentAuth",
+  storage,
+  whitelist: [
+    "id",
+    "name",
+    "email",
+    "phone",
+    "university",
+    "department",
+    "srn",
+    "token",
+    "role",
+  ],
+};
+
+const persistStudentClassesConfig = {
+  key: "studentClasses",
+  storage,
+  whitelist: ["classes"],
+};
+
 const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);
 const persistedTeacherAuthReducer = persistReducer(
   persistTeacherAuthConfig,
@@ -54,6 +79,14 @@ const persistedTeacherClassesReducer = persistReducer(
   persistTeacherClassesConfig,
   classesReducer
 );
+const persistedStudentAuthReducer = persistReducer(
+  persistStudentAuthConfig,
+  studentAuthReducer
+);
+const persistedStudentClassesReducer = persistReducer(
+  persistStudentClassesConfig,
+  studentClassReducer
+);
 
 const store = configureStore({
   reducer: {
@@ -62,6 +95,8 @@ const store = configureStore({
     adminStudent: studentReducer,
     teacherAuth: persistedTeacherAuthReducer,
     teacherClasses: persistedTeacherClassesReducer,
+    studentAuth: persistedStudentAuthReducer,
+    studentClasses: persistedStudentClassesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -5,7 +5,7 @@ import ParticlesBackground from "@/components/admin/ParticlesBackground";
 import Head from "next/head";
 
 const VerifyEmail = () => {
-  const email = useSelector((state) => state.adminAuth.email);
+  const email = useSelector((state) => state.studentAuth.email);
 
   return (
     <div style={{ position: "relative" }}>
@@ -14,6 +14,7 @@ const VerifyEmail = () => {
       <Head>
         <title>Verify Email</title>
       </Head>
+
       <AdminEmailVerifyContainer
         style={{ backgroundColor: "rgba(0,0,0,0.5)", padding: "2rem" }}
       >
@@ -45,7 +46,7 @@ const VerifyEmail = () => {
               color: "yellow",
               textDecoration: "none",
             }}
-            href="/admin/signin"
+            href="/student/signin"
           >
             Login
           </a>

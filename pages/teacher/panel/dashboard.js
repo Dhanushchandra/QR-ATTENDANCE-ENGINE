@@ -10,6 +10,7 @@ import { setClasses } from "@/slices/teacher/classesSlice";
 import { getClasses } from "@/helper/teacher/apicalls";
 import { Container, Toast } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import Head from "next/head";
 
 const DashBoard = () => {
   const [time, setTime] = useState(new Date().toLocaleTimeString());
@@ -18,7 +19,7 @@ const DashBoard = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
-  const organization = useSelector((state) => state.adminAuth.organization);
+  const department = useSelector((state) => state.teacherAuth.department);
   const id = useSelector((state) => state.teacherAuth.id);
   const token = useSelector((state) => state.teacherAuth.token);
 
@@ -63,6 +64,10 @@ const DashBoard = () => {
 
   return (
     <PanelLayout>
+      <Head>
+        <title>Teacher Dashboard</title>
+      </Head>
+
       {isLoading && <Loading />}
 
       <Toast
@@ -109,9 +114,9 @@ const DashBoard = () => {
         <Container className="d-flex justify-content-around align-items-center cards">
           <Card style={{ width: "18rem" }}>
             <Card.Body>
-              <Card.Title>Organization</Card.Title>
+              <Card.Title>Department</Card.Title>
               <Card.Text>
-                <h1>{organization}</h1>
+                <h1>{department}</h1>
               </Card.Text>
             </Card.Body>
           </Card>

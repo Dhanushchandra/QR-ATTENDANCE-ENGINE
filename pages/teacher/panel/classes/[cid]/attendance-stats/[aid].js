@@ -20,6 +20,8 @@ import {
 import { useSelector } from "react-redux";
 import { ImBin } from "react-icons/im";
 import { useFormik } from "formik";
+import Head from "next/head";
+import { handleDownloadExcel } from "@/helper/teacher/excelDownload";
 
 const Attendance = () => {
   const router = useRouter();
@@ -29,6 +31,7 @@ const Attendance = () => {
 
   const id = useSelector((state) => state.teacherAuth.id);
   const token = useSelector((state) => state.teacherAuth.token);
+  const classes = useSelector((state) => state.teacherClasses.classes);
 
   const [attendance, setAttendance] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +46,8 @@ const Attendance = () => {
     status: false,
     srn: "",
   });
+  const [className, setClassName] = useState("Attendance Record");
+  const [students, setStudents] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -131,6 +136,8 @@ const Attendance = () => {
       } else {
         setIsLoading(false);
         setAttendance(res.data);
+        const ids = res.data.students.map((s) => s.studentId);
+        setStudents(ids);
       }
     } catch (error) {
       setIsLoading(false);
@@ -141,6 +148,11 @@ const Attendance = () => {
   useEffect(() => {
     if (cid && attId) {
       preload();
+      const classObj = classes.find((c) => c.id === cid);
+      setClassName(classObj?.name);
+
+      // const ids = attendance.students.map((s) => s.studentId);
+      // setStudents(ids);
     }
   }, [cid, attId]);
 
@@ -167,6 +179,10 @@ const Attendance = () => {
 
   return (
     <PanelLayout>
+      <Head>
+        <title> {className} |Attendance Stats | Teacher |</title>
+      </Head>
+
       <Toast
         onClose={() => setSuccess({ status: false, message: "" })}
         show={success.status}
@@ -274,7 +290,7 @@ const Attendance = () => {
                 marginBottom: "30px",
               }}
             >
-              {dateHandler(attendance.date)}
+              {className} - {dateHandler(attendance.date)}
             </h1>
 
             <Form className="d-flex">
@@ -289,14 +305,24 @@ const Attendance = () => {
                 Search
               </Button>
             </Form>
-            <Button
-              variant="success"
-              className="mb-3"
-              style={{ marginLeft: "auto" }}
-              onClick={() => setShowAdd(true)}
-            >
-              Add Student
-            </Button>
+            <div>
+              <Button
+                variant="primary"
+                className="mb-3"
+                style={{ marginLeft: "auto" }}
+                onClick={() => setShowAdd(true)}
+              >
+                Add Student
+              </Button>
+              <Button
+                variant="success"
+                className="mb-3 float-end"
+                style={{ marginLeft: "auto" }}
+                onClick={() => handleDownloadExcel(students)}
+              >
+                Download
+              </Button>
+            </div>
           </div>
 
           <Table striped bordered hover>

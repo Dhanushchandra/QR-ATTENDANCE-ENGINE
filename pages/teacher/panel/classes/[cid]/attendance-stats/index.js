@@ -16,6 +16,7 @@ import {
   Toast,
 } from "react-bootstrap";
 import { ImBin } from "react-icons/im";
+import Head from "next/head";
 
 const AttendanceStats = () => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const AttendanceStats = () => {
 
   const id = useSelector((state) => state.teacherAuth.id);
   const token = useSelector((state) => state.teacherAuth.token);
+  const classes = useSelector((state) => state.teacherClasses.classes);
 
   const [attendance, setAttendance] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,6 +36,7 @@ const AttendanceStats = () => {
   });
   const [showDelete, setShowDelete] = useState(false);
   const [deleteItem, setDeleteItem] = useState({});
+  const [className, setClassName] = useState("Attendance Record");
 
   const preload = async () => {
     setIsLoading(true);
@@ -78,6 +81,8 @@ const AttendanceStats = () => {
     if (cid) {
       preload();
     }
+    const classObj = classes.find((c) => c.id === cid);
+    setClassName(classObj?.name);
   }, [cid]);
 
   const dateHandler = (date) => {
@@ -90,6 +95,10 @@ const AttendanceStats = () => {
 
   return (
     <PanelLayout>
+      <Head>
+        <title>Attendance Stats | Teacher</title>
+      </Head>
+
       {isLoading && <Loading />}
 
       <Toast
@@ -165,7 +174,7 @@ const AttendanceStats = () => {
             color: "#007074",
           }}
         >
-          Attendance Reports
+          {className}
         </h1>
         <Row>
           {attendance

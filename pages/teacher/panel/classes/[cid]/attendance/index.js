@@ -25,6 +25,7 @@ import { useFormik } from "formik";
 import { useSelector } from "react-redux";
 import { QrAttendanceContainer } from "@/styles/teacher/panel";
 import { handleDownloadExcel } from "@/helper/teacher/excelDownload";
+import Head from "next/head";
 
 function ClassPage() {
   const router = useRouter();
@@ -46,9 +47,11 @@ function ClassPage() {
     id: "",
     srn: "",
   });
+  const [className, setClassName] = useState("Attendance");
 
   const token = useSelector((state) => state.teacherAuth.token);
   const id = useSelector((state) => state.teacherAuth.id);
+  const classes = useSelector((state) => state.teacherClasses.classes);
 
   const formik = useFormik({
     initialValues: {
@@ -101,7 +104,6 @@ function ClassPage() {
         });
       });
       socket.addEventListener("message", function (event) {
-        console.log("Message from server ", event.data);
         setQrcode(event.data);
       });
       setSocket(socket);
@@ -182,10 +184,19 @@ function ClassPage() {
     }
   }, [qrcode]);
 
+  useEffect(() => {
+    const classObj = classes.find((c) => c.id === cid);
+    setClassName(classObj?.name);
+  }, [cid]);
+
   const { handleSubmit } = formik;
 
   return (
     <Sidebar>
+      <Head>
+        <title>Attendance | {className}</title>
+      </Head>
+
       <QrAttendanceContainer>
         <Toast
           onClose={() =>
@@ -266,7 +277,7 @@ function ClassPage() {
         </Modal>
 
         <div className="t-wrap">
-          <h1>Attendance</h1>
+          <h1>{className}</h1>
 
           <div
             style={{

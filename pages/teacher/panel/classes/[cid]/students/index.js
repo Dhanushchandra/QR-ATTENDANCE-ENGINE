@@ -92,7 +92,7 @@ const ClassPage = () => {
   return (
     <Sidebar>
       <Head>
-        <title>Class Students | Teacher | LMS</title>
+        <title> {classStudents.name} | Class Students | Teacher </title>
       </Head>
 
       <AddStudent
@@ -118,25 +118,6 @@ const ClassPage = () => {
 
       <TeacherClassStudentsPanelContainer>
         {isLoading && <Loading />}
-
-        {/* <Toast
-          onClose={() => setSuccess(false)}
-          show={success}
-          delay={3000}
-          bg="success"
-          style={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-          }}
-          autohide
-          className="success-toast"
-        >
-          <Toast.Header>
-            <strong className="me-auto">Success</strong>
-          </Toast.Header>
-          <Toast.Body>Students Loaded Successfully</Toast.Body>
-        </Toast> */}
 
         <Toast
           onClose={() => setError(null)}

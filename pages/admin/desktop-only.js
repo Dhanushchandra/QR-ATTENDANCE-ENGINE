@@ -1,8 +1,12 @@
 import ParticlesBackground from "@/components/admin/ParticlesBackground";
+import Head from "next/head";
 
 const DesktopOnly = () => {
   return (
     <div className="desktop-only ">
+      <Head>
+        <title>Desktop Only</title>
+      </Head>
       <ParticlesBackground />
       <h1
         style={{

@@ -5,13 +5,6 @@ export const handleDownloadExcel = (data) => {
   const workbook = XLSX.utils.book_new();
   // create sheet
 
-  console.log(data);
-
-  //   const worksheet = XLSX.utils.json_to_sheet([
-  //     { Name: "John Doe", Age: 30 },
-  //     { Name: "Jane Smith", Age: 25 },
-  //     { Name: "Bob Johnson", Age: 45 },
-  //   ]);
   const worksheet = XLSX.utils.json_to_sheet(data);
   // add sheet to workbook
   XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");

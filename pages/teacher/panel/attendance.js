@@ -61,7 +61,7 @@ const Classes = () => {
   return (
     <PanelLayout>
       <Head>
-        <title>Teacher | Classes</title>
+        <title>Teacher | Attendance</title>
       </Head>
       <TeacherClassesPanelContainer>
         {isLoading && <Loading />}

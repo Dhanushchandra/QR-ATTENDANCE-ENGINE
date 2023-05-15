@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import Head from "next/head";
 
 const Profile = () => {
   const username = useSelector((state) => state.teacherAuth.user);
@@ -29,6 +30,10 @@ const Profile = () => {
 
   return (
     <PanelLayout>
+      <Head>
+        <title>Profile</title>
+      </Head>
+
       <AdminProfileContainer>
         <h1>Profile</h1>
         <Form onSubmit={handleSubmit}>
