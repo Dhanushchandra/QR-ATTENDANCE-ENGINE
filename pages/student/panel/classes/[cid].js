@@ -41,26 +41,25 @@ function QRCodeReader() {
         fps: 1,
       });
 
-      const success = (result) => {
-        setScanResults((prevResults) => {
-          if (prevResults.length < 3) {
-            return [...prevResults, result];
-          } else {
-            // qrCodeScanner.clear();
-            return [...prevResults];
-          }
-        });
-      };
-
-      const error = (err) => {
-        // console.log(err);
-      };
-
-      qrCodeScanner.render(success, error);
+      qrCodeScanner.render(handleScanResult, handleScanError);
     }
 
     const classObj = classes.find((c) => c.classId === cid);
     setClassName(classObj?.className);
+  };
+
+  const handleScanResult = (result) => {
+    setScanResults((prevResults) => {
+      if (prevResults.length < 3) {
+        return [...prevResults, result];
+      } else {
+        return prevResults;
+      }
+    });
+  };
+
+  const handleScanError = (error) => {
+    // Handle scan error if needed
   };
 
   const handleAttendance = async () => {
@@ -98,7 +97,7 @@ function QRCodeReader() {
   }, []);
 
   useEffect(() => {
-    if (scanResults.length === 3) {
+    if (scanResults.length === 3 && !isLoading) {
       handleAttendance();
     }
   }, [scanResults]);
